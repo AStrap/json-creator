@@ -1,0 +1,59 @@
+html {
+  font-size: 16px;
+  font-family: "Helvetica Neue";
+}
+
+.App {
+}
+
+.container {
+  height: 95vh;
+}
+
+.headerSubContainer {
+  text-align: center;
+  height: 6vh;
+}
+
+.footerSubContainer {
+  text-align: center;
+  padding: 1vh;
+  height: 6vh;
+}
+
+.dataContent {
+  height: 83vh;
+  margin-left: 2px;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.25em;
+  background-color: #cecece;
+  border: 1px solid rgb(101, 101, 101);
+  border-radius: 5px;
+  overflow-y: "scroll";
+}
+
+.demoForm {
+  height: 83vh;
+  margin-right: 2px;
+  padding: 5px;
+  border: 1px solid rgb(101, 101, 101);
+  border-radius: 5px;
+  overflow-y: "scroll";
+}
+
+.saveButton {
+  height: 3vh;
+}
+
+.copyButton {
+  height: 3vh;
+}
+
+.resetButton {
+  height: 3vh;
+}
+
+.uploadFileButton {
+  height: 3vh;
+}

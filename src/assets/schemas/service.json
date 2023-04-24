@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "name": "John Doe",
+      "vegetarian": false,
+      "birthDate": "1985-06-02",
+      "personalData": {
+        "age": 34
+      },
+      "postalCode": "12345",
+      "comments": [
+        {
+          "date": "2001-09-10",
+          "message": "This is an example message"
+        },
+        {
+          "date": "2023-04-24",
+          "message": "Get ready for booohay"
+        }
+      ]
+    },
+    {
+      "name": "John Doe",
+      "vegetarian": false,
+      "birthDate": "1985-06-02",
+      "personalData": {
+        "age": 34
+      },
+      "postalCode": "12345"
+    }
+  ]
+}
