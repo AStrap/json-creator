@@ -1,0 +1,10 @@
+[
+  {
+    "project": "defaut",
+    "versions": ["1.1.0"]
+  },
+  {
+    "project": "test",
+    "versions": ["1.0.0"]
+  }
+]

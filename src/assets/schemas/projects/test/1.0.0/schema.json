@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "message": {
+            "type": "string"
+          },
+          "enum": {
+            "enum": ["foo", "bar"]
+          }
+        },
+        "label": "comments"
+      }
+    }
+  },
+  "required": []
+}

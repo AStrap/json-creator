@@ -1,6 +1,6 @@
 {
   "name": "json_creator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "UTBorgo",
   "description": "Software per la creazione di json in base ad un esempio dato",
   "private": true,

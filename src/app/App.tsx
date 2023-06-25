@@ -1,5 +1,6 @@
-import serviceFile from "../assets/schemas/service.json";
-import { Fragment, useState, useMemo } from "react";
+import defaultServiceFile from "../assets/schemas/projects/default/1.1.0/service.json";
+import defaultSchemaFile from "../assets/schemas/projects//default/1.1.0/schema.json";
+import { Fragment, useState, useMemo, useRef } from "react";
 import { JsonForms } from "@jsonforms/react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -37,11 +38,12 @@ const theme = createTheme({
     },
   },
 });
-let parser: ServiceParser = new ServiceParser(serviceFile);
+let parser: ServiceParser = new ServiceParser(defaultServiceFile);
+parser.schema = defaultSchemaFile;
 const App = () => {
   const [data, setData] = useState<any>(parser.initialData);
   const stringifiedData: string = useMemo(
-    () => JSON.stringify(data, null, 2),
+    () => JSON.stringify(JSON.parse(JSON.stringify(data)), null, 2),
     [data]
   );
 
@@ -50,7 +52,7 @@ const App = () => {
   };
 
   const saveData = () => {
-    const json = JSON.stringify( data, null, 2);
+    const json = JSON.stringify(JSON.parse(JSON.stringify(data)), null, 2);
     const blob = new Blob([json], { type: "application/json" });
     const href = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -62,19 +64,32 @@ const App = () => {
     URL.revokeObjectURL(href);
   };
 
+  const exportSchema = () => {
+    const json = JSON.stringify(parser.schema, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = href;
+    link.download = "schema.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+  };
+
   const copyData = () => {
     navigator.clipboard.writeText(
-      JSON.stringify(
-        JSON.parse(JSON.stringify(data)),
-        null,
-        2
-      )
+      JSON.stringify(JSON.parse(JSON.stringify(data)), null, 2)
     );
   };
 
   const uploadData = async (data: any) => {
-    parser = new ServiceParser(JSON.parse(data));
-    setData(JSON.parse(data));
+    let dataObj: { [key: string]: any } = JSON.parse(data);
+    parser = new ServiceParser(dataObj);
+    setData(dataObj);
+    if (ref.current) {
+      (ref.current as any).clearLastProjectAndVersion();
+    }
   };
 
   const handleFile = (file) => {
@@ -85,10 +100,26 @@ const App = () => {
     reader.readAsText(file[0]);
   };
 
+  const setProject = (project: string, version: string) => {
+    var service = require("../assets/schemas/projects/" +
+      project +
+      "/" +
+      version +
+      "/service.json");
+    var schema = require("../assets/schemas/projects/" +
+      project +
+      "/" +
+      version +
+      "/schema.json");
+    uploadData(JSON.stringify(service));
+    parser.schema = schema;
+  };
+  const ref = useRef();
+
   return (
     <Fragment>
       <div className="App">
-        <Header />
+        <Header setProject={setProject} ref={ref} />
         <Grid
           container
           justifyContent={"center"}
@@ -152,7 +183,18 @@ const App = () => {
               </ThemeProvider>
             </SimpleBarReact>
             <Grid container className="footerSubContainer">
-              <Grid item sm={12}>
+              <Grid item sm={6}>
+                <Button
+                  variant="contained"
+                  component="label"
+                  className="exportSchemaButton"
+                  color="error"
+                  onClick={exportSchema}
+                >
+                  Export Schema
+                </Button>
+              </Grid>
+              <Grid item sm={6}>
                 <Button
                   variant="contained"
                   component="label"

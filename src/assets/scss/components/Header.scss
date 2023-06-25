@@ -1,18 +1,36 @@
 .App-header {
-  background-color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
   padding: 1vh;
-  color: white;
   height: 5vh;
+  border: 1px solid gray;
+  background-color: black;
 }
 
 .App-logo {
-  height: 3vh;
+  height: 3.5vh;
+  margin-right: 3vh;
 }
 
 .App-title {
   font-size: 1.5em;
+  color: white;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.chooseProjectSelect {
+  min-width: 75px;
+  height: 3vh;
+  padding: 3px;
+  border-radius: 0.25em;
+  border: 1px solid rgb(101, 101, 101);
+  margin-right: 0.5vh;
+  background-color: white;
+}
+
+.chooseProjectButton {
+  height: 3vh;
 }
